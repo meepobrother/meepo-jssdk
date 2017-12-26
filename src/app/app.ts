@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VersionnComponent } from './version';
-
+import { WxService } from './wx.service';
 @NgModule({
     declarations: [
-        VersionnComponent
+        
     ],
     imports: [ CommonModule ],
     exports: [],
-    providers: [],
+    providers: [
+        WxService
+    ],
 })
-export class AppModule {}
+export class JssdkModule {}
+
+export { WxService } from './wx.service';
