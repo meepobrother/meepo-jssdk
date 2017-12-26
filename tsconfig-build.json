@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "outDir": "./publish/src",
+        "baseUrl": "./",
+        "declaration": true,
+        "importHelpers": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "es2015",
+        "sourceMap": true,
+        "target": "es2015",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "types": [
+            "node"
+        ]
+    },
+    "files": [
+        "./src/.tmp/app.ts"
+    ],
+    "angularCompilerOptions": {
+        "annotateForClosureCompiler": true,
+        "strictMetadataEmit": true,
+        "flatModuleOutFile": "index.js",
+        "flatModuleId": "meepo-jssdk",
+        "skipTemplateCodegen": true
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "scripts"
+    ]
+}
