@@ -132,7 +132,7 @@ export class WxService {
       }
     };
     wx.ready(()=>{
-      wx.chooseCard(body);
+      wx.chooseImage(body);
     });
     return choose$.asObservable();
   }
