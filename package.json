@@ -1,6 +1,6 @@
 {
     "name": "meepo-jssdk",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "wechat jssdk for angular",
     "main": "./bundles/meepo.umd.js",
     "module": "./esm5/meepo.js",

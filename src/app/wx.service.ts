@@ -19,9 +19,7 @@ export class WxService {
     public axios: AxiosService
   ) {
     this.imgPicker$.subscribe(ids => {
-      this.checkIds(ids, (id) => {
-        this.uploadImage(id);
-      });
+      this.checkIds(ids);
     });
     this.imgUpload$.subscribe(sid => {
       console.log('添加文件');
@@ -29,12 +27,13 @@ export class WxService {
     });
   }
 
-  checkIds(ids: any[] = [], cal) {
+  checkIds(ids: any[] = []) {
     let id;
-    if (ids.length > 0) {
+    if (ids && ids.length > 0) {
       id = ids.pop();
-      cal(id);
-      this.checkIds(ids, cal);
+      this.uploadImage(id, (sid) => {
+        this.checkIds(ids);
+      });
     }
   }
 
@@ -172,12 +171,13 @@ export class WxService {
     return this;
   }
 
-  uploadImage(localId: string): this {
+  uploadImage(localId: string, call: any): this {
     let body = {
       localId: localId,
       success: (res: any) => {
         console.log('通知上传文件', res.serverId);
         this.imgUpload$.next(res.serverId);
+        call(res.serverId)
       }
     };
     wx.ready(() => {
