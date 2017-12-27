@@ -19,13 +19,23 @@ export class WxService {
     public axios: AxiosService
   ) {
     this.imgPicker$.subscribe(ids => {
-      ids.map(id => {
+      this.checkIds(ids, (id) => {
         this.uploadImage(id);
-      })
+      });
     });
     this.imgUpload$.subscribe(sid => {
+      console.log('添加文件');
       this.addImage(sid);
     });
+  }
+
+  checkIds(ids: any[] = [], cal) {
+    let id;
+    if (ids.length > 0) {
+      id = ids.pop();
+      cal(id);
+      this.checkIds(ids, cal);
+    }
   }
 
   onMenuShareTimeline(bodyMenuShareTimeline: any): Observable<any> {
@@ -166,6 +176,7 @@ export class WxService {
     let body = {
       localId: localId,
       success: (res: any) => {
+        console.log('通知上传文件', res.serverId);
         this.imgUpload$.next(res.serverId);
       }
     };
