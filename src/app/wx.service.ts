@@ -22,7 +22,6 @@ export class WxService {
       this.checkIds(ids);
     });
     this.imgUpload$.subscribe(sid => {
-      console.log('添加文件');
       this.addImage(sid);
     });
   }
@@ -175,7 +174,6 @@ export class WxService {
     let body = {
       localId: localId,
       success: (res: any) => {
-        console.log('通知上传文件', res.serverId);
         this.imgUpload$.next(res.serverId);
         call(res.serverId)
       }
