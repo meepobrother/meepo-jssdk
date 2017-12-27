@@ -232,7 +232,9 @@ let globals = {
     'rxjs/operators/tap': 'Rx.Observable.prototype',
 
     'meepo-ua': 'meepo-ua',
-    'meepo-jssdk': 'meepo-jssdk'
+    'meepo-jssdk': 'meepo-jssdk',
+    'meepo-core': 'meepo-core',
+    'meepo-axios': 'meepo-axios'
 };
 
 let plugins = [

@@ -1,12 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-declare const wx;
+import { CoreService } from 'meepo-core';
+import { AxiosService } from 'meepo-axios';
+declare const wx: any;
+
 @Injectable()
 export class WxService {
+  // 选择图片
+  imgPicker$: Subject<any> = new Subject();
+  // 上传图片
+  imgUpload$: Subject<any> = new Subject();
+  // 到服务器
+  imgAdd$: Subject<any> = new Subject();
 
-  constructor() {
-    console.log(wx);
+  constructor(
+    public core: CoreService,
+    public axios: AxiosService
+  ) {
+    this.imgPicker$.subscribe(ids => {
+      ids.map(id => {
+        this.uploadImage(id);
+      })
+    });
+    this.imgUpload$.subscribe(sid => {
+      this.addImage(sid);
+    });
   }
 
   onMenuShareTimeline(bodyMenuShareTimeline: any): Observable<any> {
@@ -23,7 +42,7 @@ export class WxService {
         type: 'timeline'
       });
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.onMenuShareTimeline(bodyMenuShareTimeline);
     });
     return share$.asObservable();
@@ -43,7 +62,7 @@ export class WxService {
         type: 'appmessage'
       });
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.onMenuShareAppMessage(bodyMenuShareAppMessage);
     });
     return share$.asObservable();
@@ -63,7 +82,7 @@ export class WxService {
         type: 'qq'
       });
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.onMenuShareQQ(bodyMenuShareQQ);
     });
     return share$.asObservable();
@@ -83,7 +102,7 @@ export class WxService {
         type: 'qq'
       });
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.onMenuShareWeibo(bodyMenuShareWeibo);
     });
     return share$.asObservable();
@@ -103,7 +122,7 @@ export class WxService {
         type: 'qzone'
       });
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.onMenuShareQZone(body);
     });
     return share$.asObservable();
@@ -117,38 +136,43 @@ export class WxService {
         choose$.next(res.localData);
       }
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.getLocalImgData(body);
     });
     return choose$.asObservable();
   }
 
-  chooseImage(count: number = 9): Observable<any> {
-    let choose$: Subject<any> = new Subject();
+  addImage(sid: string) {
+    let url = this.core.murl('entry//open', { __do: 'audio.image', m: 'imeepos_runner' }, false);
+    this.axios.bpost(url, { serverId: sid }).then((re: any) => {
+      this.imgAdd$.next(re.data);
+    });
+  }
+
+  chooseImage(count: number = 9): this {
     let body = {
       count: count,
       success: (res: any) => {
-        choose$.next(res.localIds);
+        this.imgPicker$.next(res.localIds);
       }
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.chooseImage(body);
     });
-    return choose$.asObservable();
+    return this;
   }
 
-  uploadImage(localId: string): Observable<any> {
-    let choose$: Subject<any> = new Subject();
+  uploadImage(localId: string): this {
     let body = {
       localId: localId,
       success: (res: any) => {
-        choose$.next(res.serverId);
+        this.imgUpload$.next(res.serverId);
       }
     };
-    wx.ready(()=>{
+    wx.ready(() => {
       wx.uploadImage(body);
     });
-    return choose$.asObservable();
+    return this;
   }
 
   downloadImage(serverId: string): Observable<any> {
