@@ -3266,9 +3266,9 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-meepo-axios@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/meepo-axios/-/meepo-axios-1.2.1.tgz#09ff71798c2adb04f192c5ec20d99322e0fe7d4b"
+meepo-axios@>=1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/meepo-axios/-/meepo-axios-1.2.2.tgz#44598bfc10716fe5bf2e8e3c0179d2ad41ec545a"
   dependencies:
     "@angular/common" "5.2.0-beta.1"
     "@angular/core" "5.2.0-beta.1"
@@ -3276,6 +3276,7 @@ meepo-axios@^1.2.1:
     axios "^0.17.1"
     meepo-base64 "^1.1.1"
     meepo-core "^2.9.4"
+    meepo-uuid "^1.0.8"
     reflect-metadata "~0.1.10"
     rxjs "^5.5.0"
     zone.js "0.8.4"
@@ -3314,6 +3315,18 @@ meepo-core@^2.9.4:
     meepo-xscroll ">=1.2.9"
     reflect-metadata "^0.1.10"
     rxjs "^5.5.5"
+    zone.js "0.8.4"
+
+meepo-uuid@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/meepo-uuid/-/meepo-uuid-1.0.8.tgz#834e13cf8e12745ab19d3a303844b50988dabf0c"
+  dependencies:
+    "@angular/common" "5.2.0-beta.1"
+    "@angular/core" "5.2.0-beta.1"
+    "@angular/platform-browser" "5.2.0-beta.1"
+    reflect-metadata "^0.1.10"
+    rxjs "^5.5.5"
+    uuid "^3.1.0"
     zone.js "0.8.4"
 
 meepo-xscroll@>=1.2.9:
