@@ -153,7 +153,7 @@ export class WxService {
   addImage(sid: string) {
     let url = this.core.murl('entry//open', { __do: 'audio.image', m: 'imeepos_runner' }, false);
     this.axios.bpost(url, { serverId: sid }).subscribe((re: any) => {
-      this.imgAdd$.next(re.data);
+      this.imgAdd$.next(re);
     });
   }
 
