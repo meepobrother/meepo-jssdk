@@ -415,6 +415,7 @@ export class WxService {
   chooseWXPay(body: any) {
     let choose$: Subject<any> = new Subject();
     body.success = (res: any) => {
+      console.log(res);
       choose$.next(res);
     }
     wx.chooseWXPay(body);
